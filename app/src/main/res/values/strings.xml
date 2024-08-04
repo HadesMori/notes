@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">notes</string>
+    <string name="app_name">Notes</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="notes">Notes</string>
+    <string name="add_new_note_title">Add new note</string>
+    <string name="note_title_hint">Title</string>
+    <string name="note_body_hint">Start typing</string>
 </resources>

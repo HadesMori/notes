@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/notesFragment">
+
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="com.hadesmori.notes.ui.notes.NotesFragment"
+        android:label="fragment_notes"
+        tools:layout="@layout/fragment_notes">
+
+        <action
+            android:id="@+id/action_notesFragment_to_noteDetailActivity"
+            app:destination="@id/noteDetailActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/noteDetailActivity"
+        android:name="com.hadesmori.notes.ui.detail.NoteDetailActivity"
+        android:label="activity_note_detail"
+        tools:layout="@layout/activity_note_detail">
+
+    </activity>
+
+</navigation>
