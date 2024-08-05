@@ -46,8 +46,6 @@ class NotesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        noteViewModel.getNotes()
-
         startNoteDetailActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 val newNote = result.data?.serializable<Note>("newNote")
@@ -61,9 +59,15 @@ class NotesFragment : Fragment() {
 
                     initUI()
                 }
+
+                val noteToDelete = result.data?.serializable<Note>("noteToDelete")
+                noteToDelete?.let{
+                    noteViewModel.removeNote(it)
+                }
             }
         }
 
+        noteViewModel.getNotes()
         initUI()
     }
 

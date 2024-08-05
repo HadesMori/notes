@@ -18,6 +18,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/secondary" />
 
+    <ImageView
+        android:id="@+id/ivDelete"
+        android:src="@drawable/ic_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/secondary" />
+
     <EditText
         android:id="@+id/etTitle"
         android:layout_width="0dp"

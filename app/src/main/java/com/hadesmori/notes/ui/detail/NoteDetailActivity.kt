@@ -37,6 +37,15 @@ class NoteDetailActivity : AppCompatActivity() {
         }
 
         binding.ivBack.setOnClickListener{ saveNote() }
+        binding.ivDelete.setOnClickListener{ deleteNote() }
+    }
+
+    private fun deleteNote() {
+        val resultIntent = Intent().apply {
+            putExtra("noteToDelete", note)
+        }
+        setResult(RESULT_OK, resultIntent)
+        finish()
     }
 
     private fun saveNote() {
@@ -44,11 +53,9 @@ class NoteDetailActivity : AppCompatActivity() {
         val newBody = binding.etBody.text.toString()
 
         val newNote: Note = if(note == null){
-            Log.i("Hadesik", "New")
             Note(null, newTitle, newBody)
         }
         else{
-            Log.i("Hadesik", "Modify: ${note!!.id} ${newTitle} ${newBody}")
             Note(note!!.id, newTitle, newBody)
         }
 
