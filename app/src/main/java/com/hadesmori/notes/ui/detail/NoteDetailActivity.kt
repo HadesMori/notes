@@ -3,10 +3,12 @@ package com.hadesmori.notes.ui.detail
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.hadesmori.notes.R
 import com.hadesmori.notes.databinding.ActivityNoteDetailBinding
 import com.hadesmori.notes.domain.model.Note
+import com.hadesmori.notes.ui.notes.NotesFragment
 import java.io.Serializable
 
 class NoteDetailActivity : AppCompatActivity() {
@@ -29,7 +31,7 @@ class NoteDetailActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        note = intent.serializable<Note>("note")
+        note = intent.serializable<Note>(NotesFragment.NOTE_KEY)
 
         if(note != null){
             binding.etTitle.setText(note!!.title)
@@ -41,11 +43,22 @@ class NoteDetailActivity : AppCompatActivity() {
     }
 
     private fun deleteNote() {
-        val resultIntent = Intent().apply {
-            putExtra("noteToDelete", note)
-        }
-        setResult(RESULT_OK, resultIntent)
-        finish()
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(R.string.confirm_to_delete_message)
+            .setCancelable(false)
+            .setPositiveButton(R.string.yes) { _, _ ->
+                val resultIntent = Intent().apply {
+                    putExtra(NotesFragment.NOTE_TO_DELETE_KEY, note)
+                }
+                setResult(RESULT_OK, resultIntent)
+                finish()
+            }
+            .setNegativeButton(R.string.no) { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val alert = builder.create()
+        alert.show()
     }
 
     private fun saveNote() {
@@ -61,7 +74,7 @@ class NoteDetailActivity : AppCompatActivity() {
 
         val resultIntent = Intent().apply {
             if(newTitle.isNotEmpty() || newBody.isNotEmpty())
-                putExtra("newNote", newNote)
+                putExtra(NotesFragment.NEW_NOTE_KEY, newNote)
         }
         setResult(RESULT_OK, resultIntent)
         finish()

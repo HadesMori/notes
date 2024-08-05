@@ -16,7 +16,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hadesmori.notes.databinding.FragmentNotesBinding
 import com.hadesmori.notes.domain.model.Note
@@ -28,6 +27,12 @@ import java.io.Serializable
 
 @AndroidEntryPoint
 class NotesFragment : Fragment() {
+
+    companion object{
+        const val NOTE_TO_DELETE_KEY = "noteToDelete"
+        const val NEW_NOTE_KEY = "newNote"
+        const val NOTE_KEY = "note"
+    }
 
     private val noteViewModel by viewModels<NoteViewModel>()
     private lateinit var notesAdapter: NotesAdapter
@@ -48,7 +53,7 @@ class NotesFragment : Fragment() {
 
         startNoteDetailActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
-                val newNote = result.data?.serializable<Note>("newNote")
+                val newNote = result.data?.serializable<Note>(NEW_NOTE_KEY)
                 newNote?.let { note ->
                     if(note.id != null){
                         noteViewModel.modifyNote(note)
@@ -56,11 +61,10 @@ class NotesFragment : Fragment() {
                     else{
                         noteViewModel.addNote(note)
                     }
-
                     initUI()
                 }
 
-                val noteToDelete = result.data?.serializable<Note>("noteToDelete")
+                val noteToDelete = result.data?.serializable<Note>(NOTE_TO_DELETE_KEY)
                 noteToDelete?.let{
                     noteViewModel.removeNote(it)
                 }
@@ -92,7 +96,7 @@ class NotesFragment : Fragment() {
 
     private fun modifyNote(note: Note? = null) {
         val intent = Intent(requireContext(), NoteDetailActivity::class.java)
-        intent.putExtra("note", note)
+        intent.putExtra(NOTE_KEY, note)
         startNoteDetailActivity.launch(intent)
     }
 
