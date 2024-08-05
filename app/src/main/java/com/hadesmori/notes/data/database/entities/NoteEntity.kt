@@ -14,4 +14,11 @@ data class NoteEntity(
     @ColumnInfo("body") val body: String,
 )
 
-fun Note.toDatabase() = NoteEntity(title = title, body = body)
+fun Note.toDatabase() : NoteEntity {
+    return if(id == null){
+        NoteEntity(title = title, body = body)
+    }
+    else{
+        NoteEntity(id = id, title = title, body = body)
+    }
+}

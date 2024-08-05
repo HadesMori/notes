@@ -4,7 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.hadesmori.notes.data.database.entities.NoteEntity
+import com.hadesmori.notes.domain.model.Note
 
 @Dao
 interface NoteDao {
@@ -14,4 +16,10 @@ interface NoteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNote(note: NoteEntity)
+
+    @Query("DELETE FROM note_table WHERE title= :title")
+    suspend fun deleteNoteByTitle(title: String)
+
+    @Query("UPDATE note_table SET title = :title, body = :body WHERE id = :id")
+    suspend fun updateNote(id: Int, title: String, body: String)
 }

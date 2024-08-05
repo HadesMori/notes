@@ -20,7 +20,6 @@
         android:name="com.hadesmori.notes.ui.detail.NoteDetailActivity"
         android:label="activity_note_detail"
         tools:layout="@layout/activity_note_detail">
-
     </activity>
 
 </navigation>

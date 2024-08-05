@@ -9,8 +9,9 @@ class NotesViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView) {
 
     private val binding = ItemNoteBinding.bind(itemView)
 
-    fun render(note: Note){
+    fun render(note: Note, onItemSelected: (Note) -> Unit){
         binding.tvTitle.text = note.title
         binding.tvBody.text = note.body
+        binding.cvNote.setOnClickListener { onItemSelected(note) }
     }
 }

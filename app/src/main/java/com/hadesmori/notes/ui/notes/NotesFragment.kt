@@ -16,6 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hadesmori.notes.databinding.FragmentNotesBinding
 import com.hadesmori.notes.domain.model.Note
@@ -50,9 +51,15 @@ class NotesFragment : Fragment() {
         startNoteDetailActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 val newNote = result.data?.serializable<Note>("newNote")
-                newNote?.let {
-                    noteViewModel.addNote(it)
-                    initUIState()
+                newNote?.let { note ->
+                    if(note.id != null){
+                        noteViewModel.modifyNote(note)
+                    }
+                    else{
+                        noteViewModel.addNote(note)
+                    }
+
+                    initUI()
                 }
             }
         }
@@ -65,6 +72,26 @@ class NotesFragment : Fragment() {
         initUIState()
     }
 
+
+    private fun initList() {
+        notesAdapter = NotesAdapter(onItemSelected = {
+            modifyNote(it)
+        })
+
+        binding.addNoteButton.setOnClickListener { modifyNote() }
+
+        binding.rvNoteList.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = notesAdapter
+        }
+    }
+
+    private fun modifyNote(note: Note? = null) {
+        val intent = Intent(requireContext(), NoteDetailActivity::class.java)
+        intent.putExtra("note", note)
+        startNoteDetailActivity.launch(intent)
+    }
+
     private fun initUIState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -75,22 +102,6 @@ class NotesFragment : Fragment() {
         }
     }
 
-    private fun initList() {
-        notesAdapter = NotesAdapter()
-
-        binding.addNoteButton.setOnClickListener { createNewNote() }
-
-        binding.rvNoteList.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = notesAdapter
-        }
-    }
-
-
-    private fun createNewNote() {
-        val intent = Intent(requireContext(), NoteDetailActivity::class.java)
-        startNoteDetailActivity.launch(intent)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

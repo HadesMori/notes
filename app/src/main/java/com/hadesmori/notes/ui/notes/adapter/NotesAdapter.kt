@@ -7,7 +7,8 @@ import com.hadesmori.notes.R
 import com.hadesmori.notes.domain.model.Note
 
 class NotesAdapter(
-    private var notes: List<Note> = emptyList()
+    private var notes: List<Note> = emptyList(),
+    private val onItemSelected:(Note)-> Unit
 ) : RecyclerView.Adapter<NotesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
         return NotesViewHolder(
@@ -16,7 +17,7 @@ class NotesAdapter(
     }
 
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
-        holder.render(notes[position])
+        holder.render(notes[position], onItemSelected)
     }
 
     override fun getItemCount(): Int = notes.size

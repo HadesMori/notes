@@ -1,6 +1,7 @@
 package com.hadesmori.notes.data
 
 import com.hadesmori.notes.data.database.dao.NoteDao
+import com.hadesmori.notes.data.database.entities.NoteEntity
 import com.hadesmori.notes.data.database.entities.toDatabase
 import com.hadesmori.notes.domain.model.Note
 import com.hadesmori.notes.domain.model.toDomain
@@ -17,5 +18,9 @@ class Repository @Inject constructor(
 
     suspend fun insertNote(note: Note){
         noteDao.insertNote(note.toDatabase())
+    }
+
+    suspend fun updateNote(note: Note) {
+        noteDao.updateNote(note.id!!, note.title, note.body)
     }
 }
