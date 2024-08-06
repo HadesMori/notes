@@ -15,8 +15,11 @@ interface NoteDao {
     @Query("SELECT * FROM note_table")
     suspend fun getAllNotes(): List<NoteEntity>
 
+    @Query("SELECT * FROM note_table WHERE id = :id")
+    suspend fun getNote(id: Long) : NoteEntity
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNote(note: NoteEntity)
+    suspend fun insertNote(note: NoteEntity) : Long
 
     @Delete
     suspend fun deleteNote(note: NoteEntity)

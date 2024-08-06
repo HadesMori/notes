@@ -20,8 +20,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            style="@style/title"
             tool:text="Title" />
 
         <TextView
@@ -30,7 +29,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textSize="14sp"
+            style="@style/body"
             tool:text="Bodyddddddddddddddddddddddddddddddddddddddddd" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

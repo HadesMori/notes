@@ -15,9 +15,6 @@ import javax.inject.Inject
 @HiltViewModel
 class NoteViewModel @Inject constructor(
     private val getAllNotes: GetAllNotes,
-    private val insertNote: InsertNote,
-    private val updateNote: UpdateNote,
-    private val deleteNote: DeleteNote
 ) : ViewModel(){
 
     val noteModels = MutableStateFlow<List<Note>>(emptyList())
@@ -25,25 +22,6 @@ class NoteViewModel @Inject constructor(
     fun getNotes(){
         viewModelScope.launch {
             noteModels.value = getAllNotes()
-        }
-    }
-
-    fun updateModel(note:Note){
-        viewModelScope.launch {
-            if(note.id == null){
-                insertNote(note)
-            }
-            else{
-                updateNote(note)
-            }
-            getNotes()
-        }
-    }
-
-    fun removeNote(note: Note){
-        viewModelScope.launch {
-            deleteNote(note)
-            getNotes()
         }
     }
 }

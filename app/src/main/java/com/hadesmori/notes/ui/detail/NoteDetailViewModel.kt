@@ -1,10 +1,10 @@
 package com.hadesmori.notes.ui.detail
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hadesmori.notes.domain.DeleteNote
 import com.hadesmori.notes.domain.InsertNote
+
 import com.hadesmori.notes.domain.UpdateNote
 import com.hadesmori.notes.domain.model.Note
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,8 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class NoteDetailViewModel @Inject constructor(
     private val insertNote: InsertNote,
-    private val deleteNote: DeleteNote,
     private val updateNote: UpdateNote,
+    private val deleteNote: DeleteNote,
 ): ViewModel() {
 
     var noteModel = MutableStateFlow(Note(null))
@@ -28,10 +28,10 @@ class NoteDetailViewModel @Inject constructor(
     fun addNote(note: Note){
         viewModelScope.launch {
             if(note.id != null){
-                updateNote(note)
+                noteModel.value = updateNote(note)
             }
             else{
-                insertNote(note)
+                noteModel.value = insertNote(note)
             }
         }
     }
@@ -39,7 +39,6 @@ class NoteDetailViewModel @Inject constructor(
     fun removeNote(note: Note){
         viewModelScope.launch {
             deleteNote(note)
-            //noteModel.value = Note(null)
         }
     }
 }

@@ -34,6 +34,8 @@ class NoteDetailActivity : AppCompatActivity() {
 
     private val noteDetailViewModel: NoteDetailViewModel by viewModels()
 
+    private var onDelete: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNoteDetailBinding.inflate(layoutInflater)
@@ -78,9 +80,8 @@ class NoteDetailActivity : AppCompatActivity() {
             .setCancelable(false)
             .setPositiveButton(R.string.yes) { _, _ ->
                 noteDetailViewModel.removeNote(noteDetailViewModel.noteModel.value)
-                val resultIntent = Intent()
-                setResult(RESULT_OK, resultIntent)
-                finish()
+                onDelete = true
+                close()
             }
             .setNegativeButton(R.string.no) { dialog, _ ->
                 dialog.dismiss()
@@ -110,6 +111,8 @@ class NoteDetailActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        saveNote()
+        if(!onDelete){
+            saveNote()
+        }
     }
 }

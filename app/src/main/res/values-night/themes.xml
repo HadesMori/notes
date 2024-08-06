@@ -3,4 +3,21 @@
     <style name="Base.Theme.Notes" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:statusBarColor">@color/secondary</item>
     </style>
+
+    <style name="title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="body">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="menuItem">
+        <item name="itemIconTint">@color/primary</item>
+        <item name="itemTextColor">@color/primary</item>
+    </style>
+
 </resources>
