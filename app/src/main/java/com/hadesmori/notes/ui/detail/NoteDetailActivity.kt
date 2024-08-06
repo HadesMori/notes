@@ -3,25 +3,42 @@ package com.hadesmori.notes.ui.detail
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
+import android.view.Menu
+import android.view.MenuItem
+import android.window.OnBackInvokedDispatcher
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.hadesmori.notes.R
 import com.hadesmori.notes.databinding.ActivityNoteDetailBinding
 import com.hadesmori.notes.domain.model.Note
+import com.hadesmori.notes.ui.notes.NoteViewModel
 import com.hadesmori.notes.ui.notes.NotesFragment
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.io.Serializable
 
+@AndroidEntryPoint
 class NoteDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNoteDetailBinding
 
-    private var note: Note? = null
+    private val noteDetailViewModel: NoteDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNoteDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        noteDetailViewModel.getNoteDetail(intent.serializable<Note>(NotesFragment.NOTE_KEY)!!)
         initUI()
     }
 
@@ -31,25 +48,37 @@ class NoteDetailActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        note = intent.serializable<Note>(NotesFragment.NOTE_KEY)
+        updateUI()
 
-        if(note != null){
-            binding.etTitle.setText(note!!.title)
-            binding.etBody.setText(note!!.body)
-        }
+        onBackPressedDispatcher.addCallback(object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                close()
+            }
+        })
 
-        binding.ivBack.setOnClickListener{ saveNote() }
+        binding.ivBack.setOnClickListener{ close() }
         binding.ivDelete.setOnClickListener{ deleteNote() }
+    }
+
+    private fun updateUI() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                noteDetailViewModel.noteModel.collect {
+                    binding.etTitle.setText(it.title)
+                    binding.etBody.setText(it.body)
+                }
+            }
+        }
     }
 
     private fun deleteNote() {
         val builder = AlertDialog.Builder(this)
+
         builder.setMessage(R.string.confirm_to_delete_message)
             .setCancelable(false)
             .setPositiveButton(R.string.yes) { _, _ ->
-                val resultIntent = Intent().apply {
-                    putExtra(NotesFragment.NOTE_TO_DELETE_KEY, note)
-                }
+                noteDetailViewModel.removeNote(noteDetailViewModel.noteModel.value)
+                val resultIntent = Intent()
                 setResult(RESULT_OK, resultIntent)
                 finish()
             }
@@ -65,18 +94,22 @@ class NoteDetailActivity : AppCompatActivity() {
         val newTitle = binding.etTitle.text.toString()
         val newBody = binding.etBody.text.toString()
 
-        val newNote: Note = if(note == null){
-            Note(null, newTitle, newBody)
-        }
-        else{
-            Note(note!!.id, newTitle, newBody)
-        }
+        val noteId = noteDetailViewModel.noteModel.value.id
+        val newNote = Note(noteId, newTitle, newBody)
 
-        val resultIntent = Intent().apply {
-            if(newTitle.isNotEmpty() || newBody.isNotEmpty())
-                putExtra(NotesFragment.NEW_NOTE_KEY, newNote)
+        if(newTitle.isNotEmpty() || newBody.isNotEmpty()){
+            noteDetailViewModel.addNote(newNote)
         }
+    }
+
+    private fun close(){
+        val resultIntent = Intent()
         setResult(RESULT_OK, resultIntent)
         finish()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        saveNote()
     }
 }

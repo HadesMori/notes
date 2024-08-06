@@ -42,42 +42,25 @@ class NotesFragment : Fragment() {
 
     private lateinit var startNoteDetailActivity: ActivityResultLauncher<Intent>
 
-    inline fun <reified T : Serializable> Intent.serializable(key: String): T? = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> getSerializableExtra(key, T::class.java)
-        else -> @Suppress("DEPRECATION") getSerializableExtra(key) as? T
-    }
-
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        startNoteDetailActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == AppCompatActivity.RESULT_OK) {
-                val newNote = result.data?.serializable<Note>(NEW_NOTE_KEY)
-                newNote?.let { note ->
-                    if(note.id != null){
-                        noteViewModel.modifyNote(note)
-                    }
-                    else{
-                        noteViewModel.addNote(note)
-                    }
-                    initUI()
-                }
-
-                val noteToDelete = result.data?.serializable<Note>(NOTE_TO_DELETE_KEY)
-                noteToDelete?.let{
-                    noteViewModel.removeNote(it)
-                }
-            }
+        startNoteDetailActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            updateUI()
         }
 
-        noteViewModel.getNotes()
-        initUI()
+        updateUI()
     }
 
     private fun initUI() {
         initList()
         initUIState()
+    }
+
+    private fun updateUI(){
+        noteViewModel.getNotes()
+        initUI()
     }
 
 
@@ -86,7 +69,7 @@ class NotesFragment : Fragment() {
             modifyNote(it)
         })
 
-        binding.addNoteButton.setOnClickListener { modifyNote() }
+        binding.addNoteButton.setOnClickListener { modifyNote(Note(null)) }
 
         binding.rvNoteList.apply {
             layoutManager = LinearLayoutManager(context)
@@ -94,7 +77,7 @@ class NotesFragment : Fragment() {
         }
     }
 
-    private fun modifyNote(note: Note? = null) {
+    private fun modifyNote(note: Note) {
         val intent = Intent(requireContext(), NoteDetailActivity::class.java)
         intent.putExtra(NOTE_KEY, note)
         startNoteDetailActivity.launch(intent)
@@ -109,7 +92,6 @@ class NotesFragment : Fragment() {
             }
         }
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
