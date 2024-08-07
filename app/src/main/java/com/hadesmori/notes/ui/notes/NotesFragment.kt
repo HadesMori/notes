@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -29,8 +30,6 @@ import java.io.Serializable
 class NotesFragment : Fragment() {
 
     companion object{
-        const val NOTE_TO_DELETE_KEY = "noteToDelete"
-        const val NEW_NOTE_KEY = "newNote"
         const val NOTE_KEY = "note"
     }
 
@@ -75,6 +74,18 @@ class NotesFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = notesAdapter
         }
+
+        binding.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String): Boolean {
+                noteViewModel.getByQuery(query)
+                return false
+            }
+
+            override fun onQueryTextChange(query: String): Boolean {
+                noteViewModel.getByQuery(query)
+                return false
+            }
+        })
     }
 
     private fun modifyNote(note: Note) {

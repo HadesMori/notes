@@ -3,6 +3,7 @@ package com.hadesmori.notes.ui.notes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hadesmori.notes.domain.DeleteNote
+import com.hadesmori.notes.domain.GetAllByQuery
 import com.hadesmori.notes.domain.GetAllNotes
 import com.hadesmori.notes.domain.InsertNote
 import com.hadesmori.notes.domain.UpdateNote
@@ -15,6 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class NoteViewModel @Inject constructor(
     private val getAllNotes: GetAllNotes,
+    private val getAllByQuery: GetAllByQuery,
 ) : ViewModel(){
 
     val noteModels = MutableStateFlow<List<Note>>(emptyList())
@@ -22,6 +24,12 @@ class NoteViewModel @Inject constructor(
     fun getNotes(){
         viewModelScope.launch {
             noteModels.value = getAllNotes()
+        }
+    }
+
+    fun getByQuery(query: String){
+        viewModelScope.launch {
+            noteModels.value = getAllByQuery(query)
         }
     }
 }

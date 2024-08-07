@@ -20,9 +20,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <SearchView
+            android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/secondary"
+            android:background="@color/accent"
+            android:queryHint="Search"
+            android:textColorHint="@color/secondary"
+            android:iconTint="@color/secondary"
             />
 
     </androidx.cardview.widget.CardView>
@@ -42,9 +46,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/secondary"
+        android:backgroundTint="@color/accent"
         android:src="@drawable/ic_add"
-        app:tint="@color/primary"
+        app:tint="@color/secondary"
         android:elevation="16dp"
         app:maxImageSize="32dp"
         app:layout_constraintBottom_toBottomOf="parent"

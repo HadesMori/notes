@@ -36,7 +36,7 @@
         android:backgroundTint="@color/accent"
         android:hint="@string/note_title_hint"
         android:textColor="@color/secondary"
-        android:textColorHint="@color/secondary_transparent"
+        android:textColorHint="@color/secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivBack" />
@@ -50,7 +50,7 @@
         android:gravity="start"
         android:hint="@string/note_body_hint"
         android:textColor="@color/secondary"
-        android:textColorHint="@color/secondary_transparent"
+        android:textColorHint="@color/secondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

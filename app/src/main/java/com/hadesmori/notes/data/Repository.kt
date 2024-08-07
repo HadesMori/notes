@@ -6,6 +6,8 @@ import com.hadesmori.notes.data.database.entities.NoteEntity
 import com.hadesmori.notes.data.database.entities.toDatabase
 import com.hadesmori.notes.domain.model.Note
 import com.hadesmori.notes.domain.model.toDomain
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class Repository @Inject constructor(
@@ -30,5 +32,10 @@ class Repository @Inject constructor(
 
     suspend fun deleteNote(note: Note) {
         noteDao.deleteNote(note.toDatabase())
+    }
+
+    suspend fun getAllByQuery(query: String) : List<Note>{
+        val searchQuery = "%$query%"
+        return noteDao.getAllByQuery(searchQuery).map { it.toDomain() }
     }
 }
