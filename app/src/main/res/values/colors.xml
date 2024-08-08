@@ -9,4 +9,5 @@
     <color name="item">#4A6572</color>
 
     <color name="transparent">#00000000</color>
+    <color name="secondary_transparent">#CC898751</color>
 </resources>

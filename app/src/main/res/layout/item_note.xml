@@ -18,27 +18,28 @@
 
         <TextView
             android:id="@+id/tvTitle"
+            style="@style/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/title"
             tool:text="Title" />
 
         <TextView
             android:id="@+id/tvBody"
+            style="@style/body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            style="@style/body"
             tool:text="Bodyddddddddddddddddddddddddddddddddddddddddd" />
 
         <TextView
             android:id="@+id/tvDate"
+            style="@style/body"
+            android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            style="@style/body"
             tool:text="24/04/2024" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
