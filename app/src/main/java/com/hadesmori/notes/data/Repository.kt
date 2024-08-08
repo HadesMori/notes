@@ -26,7 +26,7 @@ class Repository @Inject constructor(
 
     suspend fun updateNote(note: Note) : Note{
         val databaseNote = note.toDatabase()
-        noteDao.updateNote(databaseNote.id, databaseNote.title, databaseNote.body)
+        noteDao.updateNote(databaseNote.id, databaseNote.title, databaseNote.body, databaseNote.date!!)
         return databaseNote.toDomain()
     }
 

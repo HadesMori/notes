@@ -19,7 +19,7 @@ class NoteDetailViewModel @Inject constructor(
     private val deleteNote: DeleteNote,
 ): ViewModel() {
 
-    var noteModel = MutableStateFlow(Note(null))
+    var noteModel = MutableStateFlow(Note(id = null, date = null))
 
     fun getNoteDetail(note: Note){
         noteModel.value = note

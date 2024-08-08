@@ -3,6 +3,7 @@ package com.hadesmori.notes.di
 import android.content.Context
 import androidx.room.Room
 import com.hadesmori.notes.data.database.NoteDatabase
+import com.hadesmori.notes.data.database.migrations.Migrations
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +20,9 @@ object RoomModule {
     @Singleton
     @Provides
     fun provideNoteDatabase(@ApplicationContext context: Context) =
-        Room.databaseBuilder(context, NoteDatabase::class.java, NOTE_DATABASE_NAME).build()
+        Room.databaseBuilder(context, NoteDatabase::class.java, NOTE_DATABASE_NAME)
+            .addMigrations(Migrations.MIGRATION_2_3)
+            .build()
 
     @Singleton
     @Provides

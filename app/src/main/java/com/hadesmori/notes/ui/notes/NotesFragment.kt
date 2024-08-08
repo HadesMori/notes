@@ -68,7 +68,7 @@ class NotesFragment : Fragment() {
             modifyNote(it)
         })
 
-        binding.addNoteButton.setOnClickListener { modifyNote(Note(null)) }
+        binding.addNoteButton.setOnClickListener { modifyNote(Note(id = null, date = null)) }
 
         binding.rvNoteList.apply {
             layoutManager = LinearLayoutManager(context)

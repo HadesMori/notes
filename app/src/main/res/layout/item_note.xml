@@ -31,5 +31,14 @@
             android:maxLines="1"
             style="@style/body"
             tool:text="Bodyddddddddddddddddddddddddddddddddddddddddd" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            style="@style/body"
+            tool:text="24/04/2024" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

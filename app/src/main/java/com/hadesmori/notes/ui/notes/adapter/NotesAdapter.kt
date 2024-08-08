@@ -23,7 +23,7 @@ class NotesAdapter(
     override fun getItemCount(): Int = notes.size
 
     fun updateList(newList: List<Note>){
-        notes = newList
+        notes = newList.sortedByDescending{ it.date }
         notifyDataSetChanged()
     }
 

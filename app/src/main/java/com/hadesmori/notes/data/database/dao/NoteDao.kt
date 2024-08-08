@@ -9,6 +9,7 @@ import androidx.room.Update
 import com.hadesmori.notes.data.database.entities.NoteEntity
 import com.hadesmori.notes.domain.model.Note
 import kotlinx.coroutines.flow.MutableStateFlow
+import java.util.Date
 
 @Dao
 interface NoteDao {
@@ -25,8 +26,8 @@ interface NoteDao {
     @Delete
     suspend fun deleteNote(note: NoteEntity)
 
-    @Query("UPDATE note_table SET title = :title, body = :body WHERE id = :id")
-    suspend fun updateNote(id: Int, title: String, body: String)
+    @Query("UPDATE note_table SET title = :title, body = :body , date = :date WHERE id = :id")
+    suspend fun updateNote(id: Int, title: String, body: String, date: Date)
 
     @Query("SELECT * FROM note_table WHERE title LIKE :query OR body LIKE :query")
     suspend fun getAllByQuery(query: String) : List<NoteEntity>

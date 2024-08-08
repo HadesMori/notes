@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.hadesmori.notes.domain.model.Note
+import java.util.Date
 
 @Entity(tableName = "note_table")
 data class NoteEntity(
@@ -12,13 +13,14 @@ data class NoteEntity(
 
     @ColumnInfo("title") val title: String,
     @ColumnInfo("body") val body: String,
+    @ColumnInfo("date") val date: Date? = Date(),
 )
 
 fun Note.toDatabase() : NoteEntity {
     return if(id == null){
-        NoteEntity(title = title, body = body)
+        NoteEntity(title = title, body = body, date = date)
     }
     else{
-        NoteEntity(id = id, title = title, body = body)
+        NoteEntity(id = id, title = title, body = body, date = date)
     }
 }

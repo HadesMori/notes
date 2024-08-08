@@ -26,6 +26,7 @@ import com.hadesmori.notes.ui.notes.NotesFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.Serializable
+import java.util.Date
 
 @AndroidEntryPoint
 class NoteDetailActivity : AppCompatActivity() {
@@ -96,7 +97,7 @@ class NoteDetailActivity : AppCompatActivity() {
         val newBody = binding.etBody.text.toString()
 
         val noteId = noteDetailViewModel.noteModel.value.id
-        val newNote = Note(noteId, newTitle, newBody)
+        val newNote = Note(noteId, newTitle, newBody, Date())
 
         if(newTitle.isNotEmpty() || newBody.isNotEmpty()){
             noteDetailViewModel.addNote(newNote)

@@ -12,6 +12,7 @@ class NotesViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView) {
     fun render(note: Note, onItemSelected: (Note) -> Unit){
         binding.tvTitle.text = note.title
         binding.tvBody.text = note.body
+        binding.tvDate.text = note.date.toString()
         binding.cvNote.setOnClickListener { onItemSelected(note) }
     }
 }
