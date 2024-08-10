@@ -5,25 +5,4 @@
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
-    <style name="title" parent="Base.Theme.Notes">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/secondary</item>
-    </style>
-
-    <style name="body" parent="Base.Theme.Notes">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/secondary</item>
-    </style>
-
-    <style name="date" parent="Base.Theme.Notes">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/secondary_transparent</item>
-    </style>
-
-    <style name="menuItem" parent="Base.Theme.Notes">
-        <item name="itemIconTint">@color/primary</item>
-        <item name="itemTextColor">@color/primary</item>
-    </style>
-
 </resources>

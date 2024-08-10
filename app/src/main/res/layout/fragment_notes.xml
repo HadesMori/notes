@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary"
+    android:theme="@style/searchView"
     tools:context=".ui.notes.NotesFragment">
 
     <androidx.cardview.widget.CardView
@@ -23,11 +24,14 @@
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/accent"
+            android:background="@color/secondary"
+            android:queryBackground="@android:color/transparent"
+            android:focusable="false"
+            android:iconifiedByDefault="false"
             android:queryHint="Search"
-            android:textColorHint="@color/secondary"
-            android:iconTint="@color/secondary"
-            />
+            android:searchHintIcon="@drawable/ic_search"
+            android:searchIcon="@drawable/ic_search"
+            android:theme="@style/searchView" />
 
     </androidx.cardview.widget.CardView>
 
@@ -46,12 +50,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/accent"
-        android:src="@drawable/ic_add"
-        app:tint="@color/secondary"
+        android:backgroundTint="@color/secondary"
         android:elevation="16dp"
-        app:maxImageSize="32dp"
+        android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="32dp"
+        app:tint="@color/accent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

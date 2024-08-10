@@ -9,22 +9,28 @@
     <style name="title" parent="Base.Theme.Notes">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/secondary</item>
+        <item name="android:textColor">@color/accent</item>
     </style>
 
     <style name="body" parent="Base.Theme.Notes">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/secondary</item>
+        <item name="android:textColor">@color/accent</item>
     </style>
 
     <style name="date" parent="Base.Theme.Notes">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/secondary_transparent</item>
+        <item name="android:textColor">@color/accent_transparent</item>
     </style>
 
     <style name="menuItem" parent="Base.Theme.Notes">
         <item name="itemIconTint">@color/accent</item>
         <item name="itemTextColor">@color/accent</item>
+    </style>
+    
+    <style name="searchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:textColorHint">@color/accent</item>
+        <item name="android:editTextColor">@color/accent</item>
+        <item name="tint">@color/accent</item>
     </style>
 
 </resources>

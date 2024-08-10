@@ -10,8 +10,6 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-import java.util.concurrent.TimeUnit
-import kotlin.time.Duration.Companion.days
 
 class NotesViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView) {
 
@@ -29,24 +27,19 @@ class NotesViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView) {
         binding.cvNote.setOnClickListener { onItemSelected(note) }
     }
 
-    private fun format(noteDate: Date) : String {
-        val currentTime = Date()
-
-        val diffInMillis = currentTime.time - noteDate.time
-        val diffInDays = TimeUnit.MILLISECONDS.toDays(diffInMillis)
-        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-
-        val noteYear = Calendar.getInstance().apply {
+    private fun format(noteDate: Date): String {
+        val currentCalendar = Calendar.getInstance()
+        val noteCalendar = Calendar.getInstance().apply {
             time = noteDate
-        }.get(Calendar.YEAR)
+        }
 
         return when {
-            // If the note was created within the last 24 hours, show the time
-            diffInDays < 1 -> {
+            // If the note was created today, show the time
+            isSameDay(currentCalendar, noteCalendar) -> {
                 SimpleDateFormat("HH:mm", Locale.getDefault()).format(noteDate)
             }
-            // If the note was created this year but more than a day ago, show day + month
-            noteYear == currentYear -> {
+            // If the note was created this year but not today, show day + month
+            noteCalendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR) -> {
                 SimpleDateFormat("dd MMM", Locale.getDefault()).format(noteDate)
             }
             // If the note was created in a previous year, show day + month + year
@@ -54,5 +47,10 @@ class NotesViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView) {
                 SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(noteDate)
             }
         }
+    }
+
+    private fun isSameDay(calendar1: Calendar, calendar2: Calendar): Boolean {
+        return calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR) &&
+                calendar1.get(Calendar.DAY_OF_YEAR) == calendar2.get(Calendar.DAY_OF_YEAR)
     }
 }

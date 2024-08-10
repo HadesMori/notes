@@ -5,27 +5,27 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
+    android:background="@color/secondary"
     android:padding="24dp"
     tools:context=".ui.detail.NoteDetailActivity">
 
     <ImageView
         android:id="@+id/ivBack"
-        android:src="@drawable/ic_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/secondary" />
+        app:tint="@color/accent" />
 
     <ImageView
         android:id="@+id/ivDelete"
-        android:src="@drawable/ic_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/secondary" />
+        app:tint="@color/accent" />
 
     <EditText
         android:id="@+id/etTitle"
@@ -35,23 +35,22 @@
         android:background="@color/transparent"
         android:backgroundTint="@color/accent"
         android:hint="@string/note_title_hint"
-        android:textColor="@color/secondary"
-        android:textColorHint="@color/secondary"
+        android:textColor="@color/accent"
+        android:textColorHint="@color/accent_transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivBack" />
 
     <TextView
         android:id="@+id/tvDate"
+        style="@style/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/etTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/etBody"
         android:layout_marginTop="8dp"
-        style="@style/date"
-        tools:text="24/04/2024"
-        />
+        app:layout_constraintBottom_toTopOf="@id/etBody"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etTitle"
+        tools:text="24/04/2024" />
 
     <EditText
         android:id="@+id/etBody"
@@ -61,8 +60,8 @@
         android:background="@color/transparent"
         android:gravity="start"
         android:hint="@string/note_body_hint"
-        android:textColor="@color/secondary"
-        android:textColorHint="@color/secondary"
+        android:textColor="@color/accent"
+        android:textColorHint="@color/accent_transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

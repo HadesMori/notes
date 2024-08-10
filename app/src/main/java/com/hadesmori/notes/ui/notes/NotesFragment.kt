@@ -4,7 +4,6 @@ package com.hadesmori.notes.ui.notes
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import android.widget.SearchView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -24,7 +23,8 @@ import com.hadesmori.notes.ui.detail.NoteDetailActivity
 import com.hadesmori.notes.ui.notes.adapter.NotesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.io.Serializable
+import java.util.Date
+
 
 @AndroidEntryPoint
 class NotesFragment : Fragment() {
@@ -68,7 +68,7 @@ class NotesFragment : Fragment() {
             modifyNote(it)
         })
 
-        binding.addNoteButton.setOnClickListener { modifyNote(Note(id = null, date = null)) }
+        binding.addNoteButton.setOnClickListener { modifyNote(Note(id = null, date = Date())) }
 
         binding.rvNoteList.apply {
             layoutManager = LinearLayoutManager(context)

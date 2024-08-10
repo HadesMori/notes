@@ -26,9 +26,4 @@ class NotesAdapter(
         notes = newList.sortedByDescending{ it.date }
         notifyDataSetChanged()
     }
-
-    fun updateList(note: Note){
-        notes.plus(note)
-        notifyDataSetChanged()
-    }
 }

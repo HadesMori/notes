@@ -2,11 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    
-    <color name="primary">#FFFFFF</color>
-    <color name="secondary">#DEDEDE</color>
-    <color name="accent">#2D2C2E</color>
+
+    <color name="primary">#4C4B4E</color>
+    <color name="secondary">#2D2C2E</color>
+    <color name="accent">#FAF5E6</color>
 
     <color name="transparent">#00000000</color>
-    <color name="accent_transparent">#992D2C2E</color>
+    <color name="accent_transparent">#99FAF5E6</color>
 </resources>
