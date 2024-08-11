@@ -1,12 +1,14 @@
 package com.hadesmori.notes.ui.notes
 
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -92,6 +94,7 @@ class NotesFragment : Fragment() {
         val intent = Intent(requireContext(), NoteDetailActivity::class.java)
         intent.putExtra(NOTE_KEY, note)
         startNoteDetailActivity.launch(intent)
+        binding.searchView.clearFocus()
     }
 
     private fun initUIState() {

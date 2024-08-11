@@ -18,14 +18,33 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/accent" />
 
-    <ImageView
-        android:id="@+id/ivDelete"
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_delete"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/accent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_share"
+            app:tint="@color/accent"
+            android:layout_marginEnd="16dp"
+            />
+
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete"
+            app:tint="@color/accent"
+            />
+
+    </LinearLayout>
+
+
 
     <EditText
         android:id="@+id/etTitle"
